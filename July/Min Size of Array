@@ -1,0 +1,21 @@
+class Solution {
+  public:
+    // Function to find minimum size of majority element
+    int MinSize(vector<int> A, int n) {
+        int mx =-1;
+        unordered_map<int,int>mp;
+        for(int i=0;i<n;i++){
+            mp[A[i]]++;
+        }
+        for(auto it:mp){
+            mx =max(mx,it.second);
+        }
+        if(n-mx<=mx){
+            // frequency of one element is greater than or eual to n/2
+            return mx -(n-mx);
+        }
+        else{
+            return n%2;
+        }
+    }
+};
