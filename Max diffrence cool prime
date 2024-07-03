@@ -1,0 +1,36 @@
+class Solution {
+  public:
+    int MaxDiff(vector<int> &A, int n) {
+        vector<int> mx(1001,-1);
+        vector<int> mn(1001,n+1);
+        int ans=-1;
+
+        // filling mx and mn arrays
+        for(int i=0;i<n;i++){
+            mx[A[i]]=max(mx[A[i]],i);
+            mn[A[i]] = min(mn[A[i]],i);
+        }
+        // find out all possible pairs [1,1000]
+        for(int i=1;i<=1000;i++){
+            for(int j=i;j<=1000;j++){
+                if(mx[i]==-1 || mx[j]==-1){
+                    continue;
+                }
+                int temp =GCD(i,j);
+                if(temp!=1){
+                    continue;
+                }
+                ans = max(ans,abs(mx[i]-mn[j]));
+                ans = max(ans,abs(mx[j]-mn[i]));
+            }
+        }
+        
+        return ans;
+    }
+    int GCD(int a,int b){
+        if(a==0){
+            return b;
+        }
+        return GCD(b%a,a);
+    }
+};
